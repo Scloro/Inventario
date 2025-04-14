@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {methodHTTP as categoriaController} from "../controllers/categoria.controllers.js";
+import { methodHTTP as categoriaController} from "../controllers/categoria.controllers.js";
 
 const router = Router();
 
