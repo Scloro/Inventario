@@ -2,7 +2,7 @@ import getConnection from "./../db/database.js";
 const getCategorias = async (req, res) => {
     try {
         const connection = await getConnection();
-        const result = await connection.query("SELECT CategoriaiD, CategoriaNombre, Descripcion, Imagen FROM categorias")
+        const result = await connection.query("SELECT CategoriaiD, CategoriaNombre, Descripcion, Imagen FROM categorias");
         res.json(result);
     } catch (error) {
         console.error("ERROR 500");
@@ -25,7 +25,20 @@ const postCategorias = async (req, res) => {
     }
 }
 
+const getCategory = async (req, res) => {
+    try {
+        console.log(req.param);
+        const {id} = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("SELECT CategoriaiD, CategoriaNombre, Descripcion, Imagen FROM categorias WHERE CategoriaID = ?", id)
+        res.json(result);
+    } catch (error) {
+        console.error("ERROR 500");
+    }
+}
+
 export const methodHTTP = {
-    getCategorias : getCategorias,
-    postCategorias : postCategorias
+    getCategorias,
+    postCategorias,
+    getCategory
 }
