@@ -2,7 +2,7 @@ import getConnection from "./../db/database.js";
 const getCategorias = async (req, res) => {
     try {
         const connection = await getConnection();
-        const result = await connection.query("SELECT CategoriaiD, CategoriaNombre, Descripcion, Imagen FROM categorias");
+        const result = await connection.query("SELECT CategoriaID, CategoriaNombre, Descripcion, Imagen FROM categorias");
         res.json(result);
     } catch (error) {
         console.error("ERROR 500");
@@ -30,7 +30,7 @@ const getCategory = async (req, res) => {
         console.log(req.param);
         const {id} = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT CategoriaiD, CategoriaNombre, Descripcion, Imagen FROM categorias WHERE CategoriaID = ?", id)
+        const result = await connection.query("SELECT CategoriaID, CategoriaNombre, Descripcion, Imagen FROM categorias WHERE CategoriaID = ?", id)
         res.json(result);
     } catch (error) {
         console.error("ERROR 500");
@@ -54,9 +54,22 @@ const updateCategorias = async (req, res) => {
     }
 }
 
+const deleteCategory = async (req, res) => {
+    try {
+        console.log("id de categoria a borrar: ", req.params);
+        const {id} = req.params;
+        const connection = await getConnection();
+        const result = await connection.query("DELETE CategoriaID, CategoriaNombre, Descripcion, Imagen FROM categorias WHERE CategoriaID = ?", id)
+        res.json(result);
+    } catch (error) {
+        console.error("ERROR 500");
+    }
+}
+
 export const methodHTTP = {
     getCategorias,
     postCategorias,
     getCategory,
-    updateCategorias
+    updateCategorias,
+    deleteCategory
 }
